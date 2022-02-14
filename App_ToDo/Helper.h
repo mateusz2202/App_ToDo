@@ -28,13 +28,21 @@ public:
 	static std::vector<Activity> read_from_file(std::string path) {
 		std::ifstream file{ path };
 		std::vector<Activity>data = {};
+		if (!std::filesystem::exists(path)) {
+			return std::vector<Activity>();
+		}
 		std::string line = std::string();
 		while (!file.eof()) {
 			getline(file, line);
-			if (line != "") {
-				auto lineSplit = split(line, ',');
-				Activity e = { stoi(lineSplit[0]),lineSplit[1],lineSplit[2],lineSplit[3],(bool)stoi(lineSplit[4]) };
-				data.push_back(e);
+			if (line != "") {				
+				try {
+					auto lineSplit = split(line, ',');
+					Activity e = { stoi(lineSplit.at(0)),lineSplit.at(1),lineSplit.at(2),lineSplit.at(3),(bool)stoi(lineSplit.at(4)) };
+					data.push_back(e);
+				}
+				catch (std::exception& e) {
+					return std::vector<Activity>();
+				}			
 			}
 		}
 		file.close();

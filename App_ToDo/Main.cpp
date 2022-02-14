@@ -3,7 +3,6 @@
 #include<string>
 #include<chrono>
 
-
 void Main::program()
 {
 	Activity a;
@@ -21,7 +20,7 @@ void Main::program()
 			a = load_data_from_console();
 			activityService->create_activity(a);
 			break;
-		case 4:write_activities(activityService->get_activities_in_progress());		
+		case 4:write_activities(activityService->get_activities_in_progress());
 			if (!activityService->change_status_activity(load_id_from_console())) std::cout << "Not found activity\n";
 			break;
 		case -1: std::system("cls"); 
