@@ -25,6 +25,17 @@ std::vector<Activity> ActivityService::get_activities_done()
 	return result;
 }
 
+bool ActivityService::change_status_activity(int id)
+{
+	auto filtr = [x = id](Activity& a) {return a.id == x; };
+	auto r = data->exercises->activity | views::filter(filtr);
+	if (r.empty())
+		return false;	
+	r.front().is_done = !r.front().is_done;
+	data->exercises->save_changes();
+	return true;
+}
+
 Activity* ActivityService::get_activity(int id)
 {
 	auto filtr = [x = id](Activity& a) {return a.id == x; };
@@ -37,7 +48,7 @@ Activity* ActivityService::get_activity(int id)
 
 void ActivityService::create_activity(Activity a)
 {
-	a.id = 10;
+	a.id = ++data->exercises->id;
 	data->exercises->activity.push_back(a);
 	data->exercises->save_changes();
 }
@@ -69,6 +80,16 @@ bool ActivityService::delete_activity(int id)
 	for (auto &x : l) data->exercises->activity.push_back(x);
 	data->exercises->save_changes();
 	return true;
+}
+
+void ActivityService::delete_all_activity()
+{
+	data->exercises->activity.clear();
+}
+
+void ActivityService::create_activities(std::vector<Activity>activities)
+{
+	for (auto& x : activities) create_activity(x);
 }
 
 

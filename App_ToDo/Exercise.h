@@ -24,6 +24,7 @@ class Exercise
 {
 public:	
 	std::vector<Activity> activity;
+	int id=0;
 	Exercise(std::string path_file) {
 		if (!std::filesystem::exists(path_file)) {
 			std::ofstream file{ path_file };
