@@ -1,7 +1,7 @@
 #include "Main.h"
 #include<iostream>
 #include<string>
-#include <chrono>
+#include<chrono>
 void Main::write_menu()
 {
 	std::cout << "MENU\n";
@@ -19,7 +19,8 @@ void Main::write_activities(std::vector<Activity> activities)
 		std::cout << "-----------------------------------------\n";
 		std::cout << "Id: " << e.id << "\n";
 		std::cout << "Name: " << e.name << "\n";
-		std::cout << "Date: " << e.date << "\n";
+		std::cout << "Date added: " << e.date << "\n";
+		std::cout << "Date activity: " << e.date_activity << "\n";
 		std::cout << "Is_done: " << e.is_done << "\n";
 		std::cout << "-----------------------------------------\n";
 	}
@@ -28,10 +29,12 @@ void Main::write_activities(std::vector<Activity> activities)
 Activity Main::load_from_console()
 {
 	Activity a;
-	std::cout << "Write a name for your activity:";
+	std::cout << "Enter a name for your activity: ";
 	std::getline(std::cin>>std::ws, a.name);
 	auto const time = std::chrono::current_zone()->to_local(std::chrono::system_clock::now());
 	a.date = std::format("{:%d-%m-%Y %X}", time);
+	std::cout << "Enter the date of activity: [dd-mm-yyyy]: ";
+	std::getline(std::cin >> std::ws, a.date_activity);
 	a.is_done = false;
 	return a;
 }
@@ -65,10 +68,10 @@ std::vector<Activity> Main::get_test_data()
 {
 	//create test data
 	std::vector<Activity> activities{
-		{0,"bieganie","13-02-2022",false},
-		{1,"plywanie","11-02-2022",false},
-		{2,"skakanie","12-02-2022",true},
-		{3,"pompki","14-02-2022",false}
+		{0,"bieganie","13-02-2022","15-02-2022",false},
+		{1,"plywanie","11-02-2022","16-02-2022",false},
+		{2,"skakanie","12-02-2022","17-02-2022",true},
+		{3,"pompki","14-02-2022","15-02-2022",false}
 	};
 	return activities;
 }

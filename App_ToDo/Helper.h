@@ -2,10 +2,7 @@
 #include<iostream>
 static class Helper
 {
-public:
-	static void hello() {
-		std::cout << "hello" << "\n";
-	}
+public:	
 	static std::vector<std::string> split(std::string s, char sep) {
 		std::vector<std::string>data = {};
 		std::string bufor = std::string();
@@ -25,7 +22,7 @@ public:
 		std::ofstream file{ path };
 		file.clear();
 		for (auto& e : activities)
-			file << e.id << "," << e.name << "," << e.date << "," << e.is_done << "\n";
+			file << e.id << "," << e.name << "," << e.date << "," << e.date_activity << ","<< e.is_done << "\n";
 		file.close();
 	}
 	static std::vector<Activity> read_from_file(std::string path) {
@@ -36,7 +33,7 @@ public:
 			getline(file, line);
 			if (line != "") {
 				auto lineSplit = split(line, ',');
-				Activity e = { stoi(lineSplit[0]),lineSplit[1],lineSplit[2],(bool)stoi(lineSplit[3]) };
+				Activity e = { stoi(lineSplit[0]),lineSplit[1],lineSplit[2],lineSplit[3],(bool)stoi(lineSplit[4]) };
 				data.push_back(e);
 			}
 		}

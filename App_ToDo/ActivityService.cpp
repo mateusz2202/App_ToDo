@@ -51,6 +51,7 @@ bool ActivityService::update_activity(int id, Activity a)
 	r.front().id = id;
 	r.front().name = a.name;
 	r.front().date = a.date;
+	r.front().date_activity = a.date_activity;
 	r.front().is_done = a.is_done;
 	data->exercises->save_changes();
 	return true;

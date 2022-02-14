@@ -7,13 +7,16 @@ struct Activity {
 	int id{};
 	std::string name;
 	std::string date;
+	std::string date_activity;
 	bool is_done = false;
 	Activity() = default;
-	Activity(int id, std::string name, std::string date, bool is_done) :id{ id }, name{ name }, date{ date }, is_done{ is_done } {}
+	Activity(int id, std::string name, std::string date,std::string date_activity, bool is_done) 
+		:id{ id }, name{ name }, date{ date }, date_activity{ date_activity }, is_done{ is_done } {}
 	Activity(const Activity* a) {
 		this->id = a->id;
 		this->name = a->name;
 		this->date = a->date;
+		this->date_activity = a->date_activity;
 		this->is_done = a->is_done;
 	}
 };
